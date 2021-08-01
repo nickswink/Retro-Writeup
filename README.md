@@ -3,6 +3,7 @@
 They say there are two paths when completing this room. The first path goes as follows:
 * Initial Access
 * CVE-2019-1388 for SYSTEM
+
 IF the last step doesn't work for you as it didn't for me you may follow a different path for gaining SYSTEM level access.
 
 https://tryhackme.com/room/retro
