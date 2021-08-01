@@ -114,6 +114,8 @@ Great! Now that I know we have RCE and I can try a full reverse shell. I got min
 After this I remembered that RDP was enabled and just for the hell of it I tried the same credentials from earlier. SURPRISE they work for RDP. This is better than our reverse shell because we have a real account instead of a service account. We can find user.txt at C:\Users\Wade\Desktop\user.txt
 
 THIS WOULD BE THE POINT IN WHICH YOU SHOULD EXPLORE WHAT THE USER WAS TRYING TO FIX WHICH WAS CVE-2019-1388. IF IT DOES NOT WORK FOR YOU DUE TO A POP UP THEN CONTINUE ON.
+
+
 ![alt text](https://github.com/nickswink/Retro-WriteUp/blob/main/popup.PNG?raw=true)
 
 
