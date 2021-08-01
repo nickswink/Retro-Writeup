@@ -81,7 +81,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 
 So I navigated to `http://10.10.204.15/retro/wp-login.php` to try out these possible credentials. I created a not-so-quick python script to brute force passwords with the username parzival.
 
-I'm not gonna lie this took me WAAY to long to figure out, but parzival is actually the password and wade is the username. After that we are into the wp-admin page.
+I'm not gonna lie this took me WAAY to long to figure out, but wade is the username and the password is the information that we found. After that we are into the wp-admin page.
 
 From prior experience with exploiting wordpress sites I knew I could possibly upload a php reverse shell so I went right to 'Theme Editor' and copied and pasted Pentestmonkey's reverse shell into 'archive.php'. Then I navigated to the location of archives.php in the browser to run the code.
 
@@ -116,7 +116,9 @@ After this I remembered that RDP was enabled and just for the hell of it I tried
 THIS WOULD BE THE POINT IN WHICH YOU SHOULD EXPLORE WHAT THE USER WAS TRYING TO FIX WHICH WAS CVE-2019-1388. IF IT DOES NOT WORK FOR YOU DUE TO A POP UP THEN CONTINUE ON.
 
 
+
 ![alt text](https://github.com/nickswink/Retro-WriteUp/blob/main/popup.PNG?raw=true)
+
 
 
 After enumerating with windows-exploit-suggester.py I tried a few different CVEs for priviledge escalation but no success. The exploit I finally had success with was [CVE-2017-0213](https://github.com/WindowsExploits/Exploits/tree/master/CVE-2017-0213). The CVE is extremely simple to use. You just get the exe file onto the victim  and run it. It will then open up a shell running as SYSTEM.
